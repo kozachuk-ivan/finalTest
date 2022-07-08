@@ -3,7 +3,83 @@
 <head>
 	<title>Final Test</title>
 	<script type="text/javascript">
-		var postion = ["Junior QA engineer", "Middle QA engineer", "Porduct owner", "Senior QA engineer", "Middle developer", "Project manager", "Senior developer", "Junior developer"];
+		let postion = ["Junior QA engineer", "Middle QA engineer", "Porduct owner", "Senior QA engineer", "Middle developer", "Project manager", "Senior developer", "Junior developer"];
+		let companyMembers = [];
+		function getNames() {		
+			let counter = postion.length;
+			for (let i = 0; i <= postion.length; i++) {
+				let usersNames = prompt(`Введите им'я члена команды, который будет занимать должность - ${postion[i]}. Всего осталось свободных должностей - ${counter}`);
+				if (!!usersNames && isNaN(usersNames)) {
+					companyMembers.push(usersNames.toLowerCase().trim());
+					counter--;
+					if(confirm(`Хотите ввести еще?`)) {
+						if (counter === 0) {
+							alert(`Все должности заняты`);
+							break;
+						} continue;				
+					}else if (counter !== 0) {
+						alert (`Вам нужно ввести еще ${counter} имен людей, так как минимально необходимо еще ${counter} людей на все должности. `);
+						if (confirm(`Хотите ввести еще?`)) {
+							i--;		
+							continue;											
+						} else {
+							alert (`Иди ищи сотрудников!!!`);
+							break;
+						};
+					}
+				} else if (confirm(`Вы хотите отменить ввод? Еще нужно ${counter} сотрудников`)) {
+					alert(`Иди ищи сотрудников!!!`);
+					break;
+				} else {
+					i--;	
+					continue;
+				}
+			}
+		}
+		let team = {
+			workers: [],
+		};
+		function createTeam() {
+			for(let i = 0; i < companyMembers.length && i < postion.length; i++) {
+				team.workers.push({name:companyMembers[i], position: postion[i]});
+			}
+		}
+		let result;
+		function calcSelery(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+		function getSelery() {
+			for (elem of team.workers) {
+				if (elem.position.includes(`Junior`)) {
+					elem.selery = calcSelery(500, 1000);
+				} else if (elem.position.includes(`Middle`)) {
+					elem.selery = calcSelery(1500, 2000);
+				} else if (elem.position.includes(`Senior`)) {
+					elem.selery = calcSelery(2500, 3000);
+				} else {
+					elem.selery = calcSelery(4000, 4500);
+				}
+			}
+		}
+		function aboutMembers() {
+			for (elem of team.workers) {
+				elem.tellAboutYourSelf = function() {
+					return console.log(`Меня зовут ${this.name} и я ${this.position}. У меня зарплата ${this.selery}`);
+				}
+				elem.tellAboutYourSelf();
+			}
+		}
+		team.showTeam = function() {
+			for (let elem of team.workers) {
+				console.log(`${elem.name} - ${elem.position} - зарплата ${elem.selery}`);
+			}
+		}
+		getNames();
+		createTeam();
+		calcSelery();
+		getSelery();
+		aboutMembers();
+		team.showTeam();
 	</script>
 </head>
 <body>
