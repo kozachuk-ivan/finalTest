@@ -63,14 +63,14 @@
 		function aboutMembers() {
 			for (elem of team.workers) {
 				elem.tellAboutYourSelf = function() {
-					return console.log(`Меня зовут ${this.name} и я ${this.position}. У меня зарплата ${this.selery}`);
+					return console.log(`Меня зовут ${this.name} и я ${this.position}. У меня зарплата ${this.selery}$`);
 				}
 				elem.tellAboutYourSelf();
 			}
 		}
 		team.showTeam = function() {
 			for (let elem of team.workers) {
-				console.log(`${elem.name} - ${elem.position} - зарплата ${elem.selery}`);
+				console.log(`${elem.name} - ${elem.position} - зарплата ${elem.selery}$`);
 			}
 		}
 		getNames();
