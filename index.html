@@ -5,6 +5,7 @@
 	<script type="text/javascript">
 		let postion = ["Junior QA engineer", "Middle QA engineer", "Porduct owner", "Senior QA engineer", "Middle developer", "Project manager", "Senior developer", "Junior developer"];
 		let companyMembers = [];
+		/************************************Набираем сотрудников на нужные должности**************************************/
 		function getNames() {		
 			let counter = postion.length;
 			for (let i = 0; i <= postion.length; i++) {
@@ -14,7 +15,7 @@
 					counter--;
 					if(confirm(`Хотите ввести еще?`)) {
 						if (counter === 0) {
-							alert(`Все должности заняты`);
+							alert(`Все должности заняты. Хорошая робота!!!`);
 							break;
 						} 			
 					} else if (counter !== 0) {
@@ -26,7 +27,7 @@
 							break;
 						};
 					} else if (counter === 0) {
-						alert(`Все должности заняты`);
+						alert(`Уже и не надо!!! Все должности заняты. Хорошая робота!!!`);
 						break;
 					}
 				} else if (confirm(`Вы хотите отменить ввод? Еще нужно ${counter} сотрудников`)) {
@@ -38,6 +39,7 @@
 				}
 			}
 		}
+		/************************************Создаем команду из людей, которых наняли**************************************/
 		let team = {
 			workers: [],
 		};
@@ -46,9 +48,11 @@
 				team.workers.push({name:companyMembers[i], position: postion[i]});
 			}
 		}
+		/************************************Додавляем функцию, которая рассчитывает зарплаты**************************************/
 		function calcSelery(min, max) {
 			return Math.floor(Math.random() * (max - min + 1)) + min;
 		}
+		/************************************Додавляем функцию, которая добавляет сотрудника ЗП, отсносительно должности**************************************/
 		function getSelery() {
 			for (elem of team.workers) {
 				if (elem.position.includes(`Junior`)) {
@@ -62,6 +66,7 @@
 				}
 			}
 		}
+		/************************************Добавляем каждому сотруднику метод, который рассказывает все об сотруднике**************************************/
 		function aboutMembers() {
 			for (elem of team.workers) {
 				elem.tellAboutYourSelf = function() {
@@ -69,11 +74,13 @@
 				}
 			}
 		}
+		/************************************Добавляем метод, который предоставляет полную инфу о всех сотрудника**************************************/
 		team.showTeam = function() {
 			for (let elem of team.workers) {
 				console.log(`${elem.name} - ${elem.position} - зарплата ${elem.selery}$`);
 			}
 		}
+		/************************************Вызиваем все функции**************************************/
 		getNames();
 		createTeam();
 		calcSelery();
